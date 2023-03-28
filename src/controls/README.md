@@ -68,14 +68,15 @@ With physics-based movement.
 
 ## Options
 
-| Property           | Default | Description |
-|--------------------|---------|-------------|
-| enabled            | true    | Enables/disables movement controls. |
-| controls           | gamepad, keyboard, touch | Ordered list of controls to be injected. |
-| speed              | 0.3      | Movement speed. |
-| fly                | false    | Whether vertical movement is enabled.               |
-| constrainToNavMesh | false    | Whether to use navigation system to clamp movement. |
-| camera             | [camera] | Camera element used for heading of the camera rig.  |
+| Property           | Default                  | Description                                            |
+|--------------------|--------------------------|--------------------------------------------------------|
+| enabled            | true                     | Enables/disables movement controls.                    |
+| controls           | gamepad, keyboard, touch | Ordered list of controls to be injected.               |
+| speed              | 0.3                      | Movement speed.                                        |
+| fly                | false                    | Whether vertical movement is enabled.                  |
+| constrainToNavMesh | false                    | Whether to use navigation system to clamp movement.    |
+| camera             | [camera]                 | Camera element used for heading of the camera rig.     |
+| setViaAttribute    | false                    | Use setAttribute instead of updating object3D directly |
 
 ## Customizing movement-controls
 

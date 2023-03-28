@@ -1433,7 +1433,8 @@ module.exports = AFRAME.registerComponent('movement-controls', {
     speed: { default: 0.3, min: 0 },
     fly: { default: false },
     constrainToNavMesh: { default: false },
-    camera: { default: '[movement-controls] [camera]', type: 'selector' }
+    camera: { default: '[movement-controls] [camera]', type: 'selector' },
+    setViaAttribute: { default: false }
   },
 
   /*******************************************************************
@@ -1535,13 +1536,21 @@ module.exports = AFRAME.registerComponent('movement-controls', {
         this.navGroup = this.navGroup === null ? nav.getGroup(start) : this.navGroup;
         this.navNode = this.navNode || nav.getNode(start, this.navGroup);
         this.navNode = nav.clampStep(start, end, this.navGroup, this.navNode, clampedEnd);
-        el.object3D.position.copy(clampedEnd);
+        if (data.setViaAttribute) {
+          el.setAttribute('position', clampedEnd.x + ' ' + clampedEnd.y + ' ' + clampedEnd.z);
+        } else {
+          el.object3D.position.copy(clampedEnd);
+        }
       } else if (el.hasAttribute('velocity')) {
         el.setAttribute('velocity', velocity);
       } else {
-        el.object3D.position.x += velocity.x * dt / 1000;
-        el.object3D.position.y += velocity.y * dt / 1000;
-        el.object3D.position.z += velocity.z * dt / 1000;
+        if (data.setViaAttribute) {
+          el.setAttribute('position', el.object3D.position.x + velocity.x * dt / 1000 + ' ' + (el.object3D.position.y += velocity.y * dt / 1000) + ' ' + (el.object3D.position.z += velocity.z * dt / 1000));
+        } else {
+          el.object3D.position.x += velocity.x * dt / 1000;
+          el.object3D.position.y += velocity.y * dt / 1000;
+          el.object3D.position.z += velocity.z * dt / 1000;
+        }
       }
     };
   }(),
